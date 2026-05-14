@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Cairo:wght@600;700;800;900&family=Rubik:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* Thmanyah Fonts */
+@font-face { font-family: "Thmanyah Sans"; src: url("https://framerusercontent.com/assets/Lh8puxCFq405qBv7dKpg9NsHZNk.woff2") format("woff2"); font-display: swap; font-style: normal; font-weight: 300; }
+@font-face { font-family: "Thmanyah Sans"; src: url("https://framerusercontent.com/assets/x6EBzvXf1Fi35XhsRoHxePDVo.woff2") format("woff2"); font-display: swap; font-style: normal; font-weight: 400; }
+@font-face { font-family: "Thmanyah Sans"; src: url("https://framerusercontent.com/assets/oE98mOPE28KTzUeptOLRIaqW1I.woff2") format("woff2"); font-display: swap; font-style: normal; font-weight: 500; }
+@font-face { font-family: "Thmanyah Sans"; src: url("https://framerusercontent.com/assets/LZvgFRUsP7pGWYj3tKxMUrKuhSY.woff2") format("woff2"); font-display: swap; font-style: normal; font-weight: 700; }
+@font-face { font-family: "Thmanyah Sans"; src: url("https://framerusercontent.com/assets/ulQLGTktcl2Qq4AmD6RuVgELZKg.woff2") format("woff2"); font-display: swap; font-style: normal; font-weight: 900; }
+@font-face { font-family: "Thmanyah Serif Display"; src: url("https://framerusercontent.com/assets/zmxf3YlIwMxBTz61cviQtq5n3zU.woff2") format("woff2"); font-display: swap; font-style: normal; font-weight: 300; }
+@font-face { font-family: "Thmanyah Serif Display"; src: url("https://framerusercontent.com/assets/s1q2LvVNWBbqzMxMBxsexY73tE.woff2") format("woff2"); font-display: swap; font-style: normal; font-weight: 400; }
+@font-face { font-family: "Thmanyah Serif Display"; src: url("https://framerusercontent.com/assets/ahIxG21c1088n0jA0bPQBjKu6M.woff2") format("woff2"); font-display: swap; font-style: normal; font-weight: 500; }
+@font-face { font-family: "Thmanyah Serif Display"; src: url("https://framerusercontent.com/assets/AAY5hsAWwWmVC7qlScZUGjzCgE8.woff2") format("woff2"); font-display: swap; font-style: normal; font-weight: 700; }
+@font-face { font-family: "Thmanyah Serif Display"; src: url("https://framerusercontent.com/assets/a9r2dKNoQcqFiTkwxTUnXgAfjws.woff2") format("woff2"); font-display: swap; font-style: normal; font-weight: 900; }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* جيل التميز الحديثة - Design System
+   كحلي #0B1F3A | ذهبي #C8A45D | رمادي فاتح #F5F5F5
+   كل الألوان HSL
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 217 67% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 217 67% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 217 67% 14%;
+
+    /* كحلي غامق #0B1F3A */
+    --primary: 217 67% 14%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 217 55% 25%;
+
+    /* ذهبي #C8A45D */
+    --gold: 37 49% 57%;
+    --gold-foreground: 217 67% 14%;
+    --gold-light: 40 55% 70%;
+    --gold-dark: 34 48% 42%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 217 67% 14%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 217 15% 40%;
+
+    --accent: 37 49% 57%;
+    --accent-foreground: 217 67% 14%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 217 20% 88%;
+    --input: 217 20% 88%;
+    --ring: 37 49% 57%;
+
+    --radius: 0.5rem;
+
+    /* تدرجات وظلال */
+    --gradient-hero: linear-gradient(135deg, hsl(217 67% 14% / 0.85) 0%, hsl(217 67% 8% / 0.7) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(40 55% 70%), hsl(37 49% 57%) 50%, hsl(34 48% 42%));
+    --gradient-navy: linear-gradient(135deg, hsl(217 67% 14%), hsl(217 55% 22%));
+    --shadow-elegant: 0 20px 60px -20px hsl(217 67% 14% / 0.35);
+    --shadow-gold: 0 10px 40px -10px hsl(37 49% 57% / 0.45);
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 217 67% 14%;
+    --sidebar-primary: 217 67% 14%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 95%;
+    --sidebar-accent-foreground: 217 67% 14%;
+    --sidebar-border: 217 20% 88%;
+    --sidebar-ring: 37 49% 57%;
+  }
+
+  .dark {
+    --background: 217 67% 8%;
+    --foreground: 0 0% 98%;
+    --card: 217 67% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 217 67% 12%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 37 49% 57%;
+    --primary-foreground: 217 67% 14%;
+    --secondary: 217 40% 18%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 217 40% 18%;
+    --muted-foreground: 217 15% 70%;
+    --accent: 37 49% 57%;
+    --accent-foreground: 217 67% 14%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217 40% 22%;
+    --input: 217 40% 22%;
+    --ring: 37 49% 57%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Tajawal', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  html[lang="en"] body {
+    font-family: 'Inter', 'Tajawal', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    @apply tracking-tight;
+  }
+
+  html[lang="en"] h1, html[lang="en"] h2, html[lang="en"] h3,
+  html[lang="en"] h4, html[lang="en"] h5, html[lang="en"] h6 {
+    font-family: 'Inter', 'Cairo', sans-serif;
+  }
+
+  /* خط هندسي للهيرو */
+  .font-hero {
+    font-family: 'Rubik', 'Cairo', 'Tajawal', sans-serif;
+    letter-spacing: -0.01em;
+  }
+  html[lang="en"] .font-hero {
+    font-family: 'Orbitron', 'Rubik', 'Inter', sans-serif;
+    letter-spacing: 0.02em;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-gradient-navy { background: var(--gradient-navy); }
+  .bg-gradient-gold { background: var(--gradient-gold); }
+  .shadow-elegant { box-shadow: var(--shadow-elegant); }
+  .shadow-gold { box-shadow: var(--shadow-gold); }
+  .transition-smooth { transition: var(--transition-smooth); }
+
+  .clip-corner {
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .animate-fade-up { animation: fade-up 0.8s ease-out both; }
+  .animate-fade-in { animation: fade-in 1s ease-out both; }
+  .animate-scale-in { animation: scale-in 0.6s ease-out both; }
+}
