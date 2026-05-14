@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { Upload, Send } from "lucide-react";
 import { useLang } from "@/i18n/LanguageContext";
+import emailjs from "@emailjs/browser";
 
 const Quote = () => {
   const { t, lang } = useLang();
@@ -32,49 +33,39 @@ const Quote = () => {
       toast.error(t.quote.consentRequired);
       return;
     }
-    setLoading(true);
-    
-    const formEl = e.currentTarget;
-    const fd = new FormData(formEl);
-    
-    const submitData = new FormData();
-    const subject = lang === "ar"
-      ? `طلب عرض سعر جديد - ${fd.get("firstName")} ${fd.get("lastName")}`
-      : `New Quote Request - ${fd.get("firstName")} ${fd.get("lastName")}`;
-      
-    submitData.append("_subject", subject);
-    submitData.append("_captcha", "false");
-    submitData.append("_template", "table");
-    
-    submitData.append("Name", `${fd.get("firstName")} ${fd.get("lastName")}`);
-    submitData.append("Phone", `+966${fd.get("phone")}`);
-    submitData.append("Email", String(fd.get("email")));
-    submitData.append("Project Type", String(fd.get("type")));
-    submitData.append("Area", String(fd.get("area")));
-    submitData.append("Location", String(fd.get("location")));
-    submitData.append("Timeline", String(fd.get("timeline")));
-    submitData.append("Details", String(fd.get("details")));
 
-    files.forEach((file, index) => {
-      submitData.append(`Attachment_${index + 1}`, file);
-    });
+    const formEl = e.currentTarget;
+    if (!formEl.checkValidity()) {
+      formEl.reportValidity();
+      return;
+    }
+
+    setLoading(true);
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/info@mgxsa.com", {
-        method: "POST",
-        body: submitData,
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error("EmailJS Configuration is missing");
+      }
+
+      await emailjs.sendForm(serviceId, templateId, formEl, {
+        publicKey: publicKey,
       });
 
-      if (response.ok) {
-        toast.success(t.quote.success);
-        formEl.reset();
-        setFiles([]);
-        setConsent(false);
-      } else {
-        toast.error(lang === "ar" ? "حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً." : "An error occurred, please try again.");
-      }
+      toast.success(t.quote.success);
+      formEl.reset();
+      setFiles([]);
+      setConsent(false);
     } catch (error) {
-      toast.error(lang === "ar" ? "تعذر الإرسال. تحقق من اتصالك بالإنترنت." : "Could not send. Check your connection.");
+      console.error("EmailJS Error:", error);
+      toast.error(
+        lang === "ar"
+          ? "حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً أو التحقق من الاتصال بالإنترنت."
+          : "An error occurred while sending, please try again or check your connection."
+      );
     } finally {
       setLoading(false);
     }
@@ -196,7 +187,7 @@ const Quote = () => {
                       : t.quote.attachmentsHint}
                   </span>
                 </label>
-                <input id="files" type="file" multiple accept=".pdf,.dwg" onChange={handleFiles} className="hidden" />
+                <input id="files" name="attachments" type="file" multiple accept=".pdf,.dwg" onChange={handleFiles} className="hidden" />
               </div>
 
               <div>
