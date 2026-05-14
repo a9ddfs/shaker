@@ -11,14 +11,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
-import { Upload, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import { useLang } from "@/i18n/LanguageContext";
-import emailjs from "@emailjs/browser";
 
 const Quote = () => {
   const { t, lang } = useLang();
   const [loading, setLoading] = useState(false);
-  const [files, setFiles] = useState<File[]>([]);
   const [consent, setConsent] = useState(false);
 
   useEffect(() => {
@@ -43,37 +41,63 @@ const Quote = () => {
     setLoading(true);
 
     try {
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
-      if (!serviceId || !templateId || !publicKey) {
-        throw new Error("EmailJS Configuration is missing");
+      if (!accessKey) {
+        throw new Error("Web3Forms Access Key is missing");
       }
 
-      await emailjs.sendForm(serviceId, templateId, formEl, {
-        publicKey: publicKey,
+      const fd = new FormData(formEl);
+      const submitData = new FormData();
+      
+      submitData.append("access_key", accessKey);
+      
+      const subject = lang === "ar"
+        ? `طلب عرض سعر جديد - ${fd.get("firstName")} ${fd.get("lastName")}`
+        : `New Quote Request - ${fd.get("firstName")} ${fd.get("lastName")}`;
+      
+      submitData.append("subject", subject);
+      submitData.append("from_name", "جيل التميز الحديثة");
+      submitData.append("replyto", String(fd.get("email")));
+      
+      // Form fields
+      submitData.append("name", `${fd.get("firstName")} ${fd.get("lastName")}`);
+      submitData.append("phone", `+966${fd.get("phone")}`);
+      submitData.append("email", String(fd.get("email")));
+      submitData.append("project_type", String(fd.get("type")));
+      submitData.append("area", String(fd.get("area")));
+      submitData.append("city", String(fd.get("location")));
+      submitData.append("message", String(fd.get("details")));
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: submitData,
       });
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok || (data && !data.success)) {
+        throw new Error((data && data.message) ? data.message : "Failed to send email via Web3Forms");
+      }
 
       toast.success(t.quote.success);
       formEl.reset();
-      setFiles([]);
       setConsent(false);
-    } catch (error) {
-      console.error("EmailJS Error:", error);
-      toast.error(
-        lang === "ar"
-          ? "حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً أو التحقق من الاتصال بالإنترنت."
-          : "An error occurred while sending, please try again or check your connection."
-      );
+    } catch (error: any) {
+      console.error("Error:", error);
+      const errMsg = error.message || "";
+      if (errMsg && errMsg !== "Failed to send email via Web3Forms" && errMsg !== "Failed to fetch") {
+        toast.error(lang === "ar" ? `فشل الإرسال: ${errMsg}` : `Send failed: ${errMsg}`);
+      } else {
+        toast.error(
+          lang === "ar"
+            ? "حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً أو التحقق من الاتصال بالإنترنت."
+            : "An error occurred while sending, please try again or check your connection."
+        );
+      }
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const list = Array.from(e.target.files || []).slice(0, 5);
-    setFiles(list);
   };
 
   return (
@@ -175,19 +199,6 @@ const Quote = () => {
                   {t.quote.location} <span className="text-destructive">*</span>
                 </Label>
                 <Input id="location" name="location" required maxLength={100} placeholder={t.quote.locationPlaceholder} className="mt-2 h-11" />
-              </div>
-
-              <div>
-                <Label className="text-primary font-bold">{t.quote.attachments}</Label>
-                <label htmlFor="files" className="mt-2 flex items-center justify-center gap-2 px-4 py-6 border-2 border-dashed border-border rounded-md cursor-pointer hover:border-gold hover:bg-secondary/50 transition-smooth">
-                  <Upload className="w-5 h-5 text-gold" />
-                  <span className="text-sm text-muted-foreground">
-                    {files.length > 0
-                      ? `${files.length} ${lang === "ar" ? "ملف محدد" : "files selected"}`
-                      : t.quote.attachmentsHint}
-                  </span>
-                </label>
-                <input id="files" name="attachments" type="file" multiple accept=".pdf,.dwg" onChange={handleFiles} className="hidden" />
               </div>
 
               <div>
