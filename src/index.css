@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Cairo:wght@600;700;800;900&family=Rubik:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 /* Thmanyah Fonts */
 @font-face { font-family: "Thmanyah Sans"; src: url("https://framerusercontent.com/assets/Lh8puxCFq405qBv7dKpg9NsHZNk.woff2") format("woff2"); font-display: swap; font-style: normal; font-weight: 300; }
@@ -109,31 +109,31 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Tajawal', system-ui, sans-serif;
+    font-family: "Thmanyah Sans", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
   html[lang="en"] body {
-    font-family: 'Inter', 'Tajawal', system-ui, sans-serif;
+    font-family: "Inter", "Thmanyah Sans", system-ui, sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cairo', 'Tajawal', sans-serif;
+    font-family: "Thmanyah Serif Display", "Thmanyah Sans", sans-serif;
     @apply tracking-tight;
   }
 
   html[lang="en"] h1, html[lang="en"] h2, html[lang="en"] h3,
   html[lang="en"] h4, html[lang="en"] h5, html[lang="en"] h6 {
-    font-family: 'Inter', 'Cairo', sans-serif;
+    font-family: "Inter", "Thmanyah Serif Display", sans-serif;
   }
 
   /* خط هندسي للهيرو */
   .font-hero {
-    font-family: 'Rubik', 'Cairo', 'Tajawal', sans-serif;
+    font-family: "Thmanyah Serif Display", "Thmanyah Sans", sans-serif;
     letter-spacing: -0.01em;
   }
   html[lang="en"] .font-hero {
-    font-family: 'Orbitron', 'Rubik', 'Inter', sans-serif;
+    font-family: "Orbitron", "Inter", sans-serif;
     letter-spacing: 0.02em;
   }
 }
