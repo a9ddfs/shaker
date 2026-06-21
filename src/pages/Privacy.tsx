@@ -35,7 +35,7 @@ const content = {
     emailLabel: "البريد الإلكتروني:",
     phoneLabel: "رقم الهاتف:",
     addressLabel: "العنوان:",
-    address: "حي المونسية، طريق الأمير محمد بن سلمان بن عبدالعزيز، الرياض 13253، المملكة العربية السعودية",
+    address: "حي النرجس، طريق عثمان بن عفان، الرياض 13324، المملكة العربية السعودية",
     pageTitle: "بيان الخصوصية | جيل التميز الحديثة",
   },
   en: {
@@ -68,7 +68,7 @@ const content = {
     emailLabel: "Email:",
     phoneLabel: "Phone:",
     addressLabel: "Address:",
-    address: "Al Munsiyah Dist., Prince Mohammed Ibn Salman Ibn Abdulaziz Rd, Riyadh 13253, Kingdom of Saudi Arabia",
+    address: "Othman Bin Affan Rd, An Narjis, Riyadh 13324",
     pageTitle: "Privacy Statement | Modern Excellence Generation",
   },
 };
