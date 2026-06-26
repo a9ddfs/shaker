@@ -87,7 +87,7 @@ export const translations = {
       company: "شركة جيل التميز الحديثة للمقاولات",
       hoursTitle: "أوقات العمل",
       hours1: "الأحد - الخميس: 10:00 ص - 8:00 م",
-      hours2: "السبت: 2:00 م - 8:00 م",
+      hours2: "السبت: 4:00 م - 8:00 م",
     },
     quote: {
       pageTitle: "اطلب عرض سعر",
@@ -217,7 +217,7 @@ export const translations = {
       company: "Modern Excellence Generation Contracting",
       hoursTitle: "Working Hours",
       hours1: "Sunday - Thursday: 10:00 AM - 8:00 PM",
-      hours2: "Saturday: 2:00 PM - 8:00 PM",
+      hours2: "Saturday: 4:00 PM - 8:00 PM",
     },
     quote: {
       pageTitle: "Request a Quote",
